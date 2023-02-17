@@ -8,6 +8,11 @@ import {
   getAllBooks,
 } from "../utils";
 
+import Get from "../crudComponents/Get";
+import Post from "../crudComponents/Post";
+import Put from "../crudComponents/Put";
+import Delete from "../crudComponents/Delete";
+
 const CrudContainer = ({ books, setBooks, setResetBooks, resetBooks }) => {
   const [option, setOption] = useState("get");
   const [title, setTitle] = useState("");
@@ -25,8 +30,9 @@ const CrudContainer = ({ books, setBooks, setResetBooks, resetBooks }) => {
     setOption(e.target.value);
   };
 
-  const inputChangeHandler = (e, setter, states) => {
+  const inputChangeHandler = (e, setter, state) => {
     setter(e.target.value);
+    console.log(state);
   };
 
   return (
@@ -55,15 +61,13 @@ const CrudContainer = ({ books, setBooks, setResetBooks, resetBooks }) => {
       ) : option === "post" ? (
         <Post
           inputChangeHandler={inputChangeHandler}
-          setters={setters}
           addBook={addBook}
           title={title}
           author={author}
           genre={genre}
-          books={books}
-          setBooks={setBooks}
           resetBooks={resetBooks}
           setResetBooks={setResetBooks}
+          setters={setters}
         />
       ) : option === "put" ? (
         <Put
@@ -86,116 +90,6 @@ const CrudContainer = ({ books, setBooks, setResetBooks, resetBooks }) => {
           setResetBooks={setResetBooks}
         />
       ) : null}
-    </div>
-  );
-};
-
-const Get = ({ getAllBooks, resetBooks, setResetBooks }) => {
-  return (
-    <div>
-      <button onClick={(e) => getAllBooks(e, resetBooks, setResetBooks)}>
-        Get All Books
-      </button>
-    </div>
-  );
-};
-
-const Post = ({
-  inputChangeHandler,
-  setters,
-  addBook,
-  title,
-  author,
-  genre,
-  books,
-  setBooks,
-  resetBooks,
-  setResetBooks,
-}) => {
-  return (
-    <div>
-      <form
-        onSubmit={(e) =>
-          addBook(
-            e,
-            title,
-            author,
-            genre,
-            books,
-            setBooks,
-            resetBooks,
-            setResetBooks,
-            setters
-          )
-        }
-      >
-        <input
-          placeholder="title"
-          onChange={(e) => inputChangeHandler(e, setters.setTitle)}
-        />
-        <input
-          placeholder="author"
-          onChange={(e) => inputChangeHandler(e, setters.setAuthor)}
-        />
-        <input
-          placeholder="genre"
-          onChange={(e) => inputChangeHandler(e, setters.setGenre)}
-        />
-        <button type="submit">Post to DB</button>
-      </form>
-    </div>
-  );
-};
-
-const Put = ({
-  inputChangeHandler,
-  setters,
-  title,
-  setBooks,
-  resetBooks,
-  setResetBooks,
-}) => {
-  const [newAuthor, setNewAuthor] = useState("");
-  return (
-    <div>
-      <form
-        onSubmit={(e) =>
-          updateAuthor(e, title, newAuthor, resetBooks, setResetBooks)
-        }
-      >
-        <input
-          placeholder="title"
-          onChange={(e) => inputChangeHandler(e, setters.setTitle)}
-        />
-        <input
-          placeholder="new author"
-          onChange={(e) => inputChangeHandler(e, setNewAuthor)}
-        />
-        <button type="submit">Update Author</button>
-      </form>
-    </div>
-  );
-};
-
-const Delete = ({
-  e,
-  inputChangeHandler,
-  setters,
-  title,
-  resetBooks,
-  setResetBooks,
-}) => {
-  return (
-    <div>
-      <form
-        onSubmit={(e) => deleteBookByTitle(e, title, resetBooks, setResetBooks)}
-      >
-        <input
-          placeholder="title"
-          onChange={(e) => inputChangeHandler(e, setters.setTitle)}
-        />
-        <button type="submit">Delete Book</button>
-      </form>
     </div>
   );
 };

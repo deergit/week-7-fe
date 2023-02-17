@@ -1,11 +1,5 @@
 export const getAllBooks = async (e, resetBooks, setResetBooks) => {
   e.preventDefault();
-  // const response = await fetch("http://localhost:5001/books/getallbooks");
-  // const data = await response.json();
-  // console.log("data in index.js getallbooks: ", data);
-
-  //   console.log("setBooks: ", setBooks);
-  console.log("getallbooks!!!");
   await setResetBooks(!resetBooks);
 };
 
@@ -14,11 +8,8 @@ export const addBook = async (
   title,
   author,
   genre,
-  books,
-  setBooks,
   resetBooks,
-  setResetBooks,
-  setters
+  setResetBooks
 ) => {
   e.preventDefault();
   try {
@@ -39,11 +30,7 @@ export const addBook = async (
   const data = await response.json();
   console.log(response);
   console.log(data);
-  // await getAllBooks(books, setBooks);
   await setResetBooks(!resetBooks);
-  // await setters.setTitle("");
-  // await setters.setAuthor("");
-  // await setters.setGenre("");
   e.target.reset();
 };
 
@@ -72,7 +59,6 @@ export const updateAuthor = async (
   const data = await response.json();
   console.log(response);
   console.log(data);
-  // await getAllBooks(setBooks);
   await setResetBooks(!resetBooks);
   e.target.reset();
 };
@@ -84,7 +70,6 @@ export const deleteBookByTitle = async (
   setResetBooks
 ) => {
   e.preventDefault();
-  console.log("!!!!!deleteBookByTitle");
   const body = JSON.stringify({
     title: title,
   });
@@ -99,7 +84,6 @@ export const deleteBookByTitle = async (
   const data = await response.json();
   console.log(response);
   console.log(data);
-  // await getAllBooks(setBooks);
   await setResetBooks(!resetBooks);
   e.target.reset();
 };
