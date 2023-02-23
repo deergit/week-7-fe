@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     async function fetchBooks() {
-      const response = await fetch(`http://localhost:5001/books`);
+      const response = await fetch(`http://localhost:5001/books/getallbooks`);
       const data = await response.json();
       console.log(data);
       setBooks(data.books);

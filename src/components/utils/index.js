@@ -19,7 +19,7 @@ export const addBook = async (
       genre: genre,
     });
 
-    await fetch(`http://localhost:5001/books`, {
+    await fetch(`http://localhost:5001/books/addbook`, {
       method: "POST",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -59,7 +59,7 @@ export const updateAuthor = async (
       newAuthor: newAuthor,
     });
 
-    await fetch(`http://localhost:5001/books`, {
+    await fetch(`http://localhost:5001/books/updatebookauthor`, {
       method: "PUT",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -85,7 +85,7 @@ export const deleteBookByTitle = async (
       title: title,
     });
 
-    await fetch(`http://localhost:5001/books`, {
+    await fetch(`http://localhost:5001/books/deletebook`, {
       method: "DELETE",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -102,7 +102,7 @@ export const deleteBookByTitle = async (
 export const deleteAllBooks = async (e, resetBooks, setResetBooks) => {
   e.preventDefault();
   try {
-    await fetch(`http://localhost:5001/books/all`, {
+    await fetch(`http://localhost:5001/books/deleteallbooks`, {
       method: "DELETE",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
