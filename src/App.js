@@ -9,11 +9,10 @@ function App() {
 
   useEffect(() => {
     async function fetchBooks() {
-      const response = await fetch("http://localhost:5001/books/getallbooks");
+      const response = await fetch(`http://localhost:5001/books`);
       const data = await response.json();
       console.log(data);
       setBooks(data.books);
-      console.log(books);
     }
     fetchBooks();
   }, [resetBooks]);
@@ -22,7 +21,6 @@ function App() {
     <div className="App">
       <CardContainer books={books} />
       <CrudContainer
-        books={books}
         setBooks={setBooks}
         setResetBooks={setResetBooks}
         resetBooks={resetBooks}

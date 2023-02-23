@@ -13,25 +13,35 @@ export const addBook = async (
 ) => {
   e.preventDefault();
   try {
-  } catch (error) {}
-  const body = JSON.stringify({
-    title: title,
-    author: author,
-    genre: genre,
-  });
+    const body = JSON.stringify({
+      title: title,
+      author: author,
+      genre: genre,
+    });
 
-  const response = await fetch("http://localhost:5001/books/addbook", {
-    method: "POST",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-    body: body,
-  });
+    await fetch(`http://localhost:5001/books`, {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: body,
+    });
 
-  const data = await response.json();
-  console.log(response);
-  console.log(data);
-  await setResetBooks(!resetBooks);
-  e.target.reset();
+    await setResetBooks(!resetBooks);
+    e.target.reset();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getOneBook = async (e, title, setBooks) => {
+  e.preventDefault();
+  try {
+    const response = await fetch(`http://localhost:5001/books/${title}`);
+    const data = await response.json();
+    setBooks([data.book]);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateAuthor = async (
@@ -42,25 +52,25 @@ export const updateAuthor = async (
   setResetBooks
 ) => {
   e.preventDefault();
-  console.log("reset books updateAuthor: ", resetBooks);
-  console.log("title, newautor: ", title, newAuthor);
-  const body = JSON.stringify({
-    title: title,
-    newAuthor: newAuthor,
-  });
 
-  const response = await fetch("http://localhost:5001/books/updatebookauthor", {
-    method: "PUT",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-    body: body,
-  });
+  try {
+    const body = JSON.stringify({
+      title: title,
+      newAuthor: newAuthor,
+    });
 
-  const data = await response.json();
-  console.log(response);
-  console.log(data);
-  await setResetBooks(!resetBooks);
-  e.target.reset();
+    await fetch(`http://localhost:5001/books`, {
+      method: "PUT",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: body,
+    });
+
+    await setResetBooks(!resetBooks);
+    e.target.reset();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const deleteBookByTitle = async (
@@ -70,20 +80,35 @@ export const deleteBookByTitle = async (
   setResetBooks
 ) => {
   e.preventDefault();
-  const body = JSON.stringify({
-    title: title,
-  });
+  try {
+    const body = JSON.stringify({
+      title: title,
+    });
 
-  const response = await fetch("http://localhost:5001/books/deletebook", {
-    method: "DELETE",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-    body: body,
-  });
+    await fetch(`http://localhost:5001/books`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: body,
+    });
 
-  const data = await response.json();
-  console.log(response);
-  console.log(data);
-  await setResetBooks(!resetBooks);
-  e.target.reset();
+    await setResetBooks(!resetBooks);
+    e.target.reset();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteAllBooks = async (e, resetBooks, setResetBooks) => {
+  e.preventDefault();
+  try {
+    await fetch(`http://localhost:5001/books/all`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    });
+    setResetBooks(!resetBooks);
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -6,6 +6,7 @@ import {
   updateAuthor,
   deleteBookByTitle,
   getAllBooks,
+  deleteAllBooks,
 } from "../utils";
 
 import Get from "../crudComponents/Get";
@@ -13,7 +14,7 @@ import Post from "../crudComponents/Post";
 import Put from "../crudComponents/Put";
 import Delete from "../crudComponents/Delete";
 
-const CrudContainer = ({ books, setBooks, setResetBooks, resetBooks }) => {
+const CrudContainer = ({ setBooks, setResetBooks, resetBooks }) => {
   const [option, setOption] = useState("get");
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -57,6 +58,9 @@ const CrudContainer = ({ books, setBooks, setResetBooks, resetBooks }) => {
           getAllBooks={getAllBooks}
           resetBooks={resetBooks}
           setResetBooks={setResetBooks}
+          title={title}
+          setTitle={setTitle}
+          setBooks={setBooks}
         />
       ) : option === "post" ? (
         <Post
@@ -88,6 +92,7 @@ const CrudContainer = ({ books, setBooks, setResetBooks, resetBooks }) => {
           setBooks={setBooks}
           resetBooks={resetBooks}
           setResetBooks={setResetBooks}
+          deleteAllBooks={deleteAllBooks}
         />
       ) : null}
     </div>

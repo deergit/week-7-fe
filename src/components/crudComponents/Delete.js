@@ -5,6 +5,7 @@ const Delete = ({
   resetBooks,
   setResetBooks,
   deleteBookByTitle,
+  deleteAllBooks,
 }) => {
   return (
     <div>
@@ -16,6 +17,9 @@ const Delete = ({
           onChange={(e) => inputChangeHandler(e, setters.setTitle)}
         />
         <button type="submit">Delete Book</button>
+      </form>
+      <form onSubmit={(e) => deleteAllBooks(e, resetBooks, setResetBooks)}>
+        <button type="submit">Delete All</button>
       </form>
     </div>
   );
